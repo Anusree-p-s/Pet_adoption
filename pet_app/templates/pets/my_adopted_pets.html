@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">🐾 My Adopted Pets</h2>
+    {% if adopted_pets %}
+        <div class="row">
+            {% for pet in adopted_pets %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if pet.image %}
+                        <img src="{{ pet.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pet.name }}</h5>
+                        <p class="card-text">
+                            <strong>Breed:</strong> {{ pet.breed }}<br>
+                            <strong>Age:</strong> {{ pet.age }}<br>
+                            <strong>Category:</strong> {{ pet.category }}<br>
+                        </p>
+                        <span class="badge bg-success">Adopted</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted text-center">You haven't adopted any pets yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

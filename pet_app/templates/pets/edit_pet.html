@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="max-width: 600px; margin-top: 50px;">
+    <div class="card shadow-sm p-4">
+        <h2 class="mb-3 text-center">✏️ Edit Pet: {{ pet.name }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <p class="text-danger small">{{ form.name.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.category.label_tag }}
+                {{ form.category }}
+                {% if form.category.errors %}
+                    <p class="text-danger small">{{ form.category.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.breed.label_tag }}
+                {{ form.breed }}
+                {% if form.breed.errors %}
+                    <p class="text-danger small">{{ form.breed.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.age.label_tag }}
+                {{ form.age }}
+                {% if form.age.errors %}
+                    <p class="text-danger small">{{ form.age.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <p class="text-danger small">{{ form.description.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.image.label_tag }}
+                {{ form.image }}
+                {% if form.image.errors %}
+                    <p class="text-danger small">{{ form.image.errors }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-pastel w-100">Update Pet</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5" style="max-width: 800px;">
+
+  <h2 class="mb-4 text-center">📊 Dashboard</h2>
+
+  <div class="row text-center">
+    <!-- Total Pets -->
+    <div class="col-md-4 mb-3">
+      <button class="btn btn-pastel w-100 py-4">
+        🐾 Total Pets<br>
+        <span class="display-6">{{ total_pets }}</span>
+      </button>
+    </div>
+
+    <!-- Available Pets -->
+    <div class="col-md-4 mb-3">
+      <button class="btn btn-pastel w-100 py-4">
+        ✅ Available Pets<br>
+        <span class="display-6">{{ available_pets }}</span>
+      </button>
+    </div>
+
+    <!-- Adopted Pets -->
+    <div class="col-md-4 mb-3">
+      <button class="btn btn-pastel w-100 py-4">
+        ❤️ Adopted Pets<br>
+        <span class="display-6">{{ adopted_pets }}</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

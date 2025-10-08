@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">🐾 Explore Pets</h1>
+
+    <!-- Search Bar -->
+    <div class="input-group mb-3">
+        <form method="get" action="{% url 'expanded_home' %}" class="d-flex w-100">
+            <input type="text" name="q" class="form-control" placeholder="Search pets by name, breed, or category..." value="{{ query }}">
+            <button class="btn btn-pastel ms-2" type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Why Adopt Section -->
+    <div class="card shadow-sm p-4 mb-5" style="background-color: #d9eafc;">
+        <h3 class="mb-2">🌿 Why Adopt a Pet?</h3>
+        <p class="text-muted">
+            Adopting a pet not only gives a loving home to an animal in need 🐶🐱,  
+            but also brings joy, companionship, and responsibility into your life ❤️.  
+            Find your fur-ever loyal companion 🐾 and bring home sheer happiness — adopt today! 🌟
+        </p>
+    </div>
+
+    <!-- Add Pet Button -->
+    <div class="mb-4 text-end">
+        <a href="{% url 'add_pet' %}" class="btn btn-pastel fw-semibold px-4 py-2 shadow-sm">
+            🐾 Add a New Pet
+        </a>
+    </div>
+
+    <!-- All Available Pets -->
+    <h3 class="mb-3">Available Pets</h3>
+    <div class="row mb-5">
+        {% if pets %}
+            {% for pet in pets %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if pet.image %}
+                        <img src="{{ pet.image.url }}" class="card-img-top" alt="{{ pet.name }}" style="height:200px; object-fit:cover;">
+                    {% else %}
+                        <img src="{% static 'images/default_pet.png' %}" class="card-img-top" alt="No image" style="height:200px; object-fit:cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pet.name }}</h5>
+                        <p class="card-text">
+                            <strong>Breed:</strong> {{ pet.breed }}<br>
+                            <strong>Age:</strong> {{ pet.age }} years<br>
+                            <strong>Category:</strong> {{ pet.category }}<br>
+                            <small class="text-muted">{{ pet.description|truncatewords:15 }}</small>
+                        </p>
+                        <!-- Pet Actions -->
+                        <a href="{% url 'pet_details' pet.id %}" class="btn btn-pastel btn-sm mb-1">Pet Details</a>
+                        {% if pet.available %}
+                            <a href="{% url 'adopt_pet' pet.id %}" class="btn btn-success btn-sm mb-1">Adopt</a>
+                        {% else %}
+                            <span class="badge bg-danger mb-1">Adopted</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted text-center">No pets match your search.</p>
+        {% endif %}
+    </div>
+
+    <!-- My Added Pets -->
+    <h3 class="mb-3">My Added Pets</h3>
+    <div class="row">
+        {% if user_pets %}
+            {% for pet in user_pets %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-primary shadow-sm">
+                    {% if pet.image %}
+                        <img src="{{ pet.image.url }}" class="card-img-top" alt="{{ pet.name }}" style="height:200px; object-fit:cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pet.name }}</h5>
+                        <p class="card-text">
+                            <strong>Breed:</strong> {{ pet.breed }}<br>
+                            <strong>Age:</strong> {{ pet.age }}<br>
+                            <strong>Status:</strong> 
+                            {% if pet.available %}
+                                <span class="badge bg-success">Available</span>
+                            {% else %}
+                                <span class="badge bg-danger">Adopted</span>
+                            {% endif %}
+                        </p>
+
+                        <!-- Owner Actions -->
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="{% url 'pet_details' pet.id %}" class="btn btn-pastel btn-sm">Pet Details</a>
+                            <a href="{% url 'edit_pet' pet.id %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_pet' pet.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</a>
+                            <a href="{% url 'adoption_info' %}?pet={{ pet.id }}" class="btn btn-outline-success btn-sm">Adoption Requests</a>
+                            <a href="{% url 'owner_requests' %}?pet_id={{ pet.id }}" class="btn btn-outline-success btn-sm">View Requests</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted text-center">You haven’t added any pets yet. <a href="{% url 'add_pet' %}">Add one now</a>.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">🐾 Adoption Requests for Your Pets</h2>
+    {% if requests %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Pet</th>
+                    <th>Requested By</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in requests %}
+                <tr>
+                    <td>{{ req.pet.name }}</td>
+                    <td>{{ req.user.username }}</td>
+                    <td>{{ req.status }}</td>
+                    <td>{{ req.request_date|date:"M d, Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'update_request' req.id 'Approved' %}" class="btn btn-success btn-sm">Approve</a>
+                        <a href="{% url 'update_request' req.id 'Rejected' %}" class="btn btn-danger btn-sm">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No pending adoption requests.</p>
+    {% endif %}
+</div>
+{% endblock %}

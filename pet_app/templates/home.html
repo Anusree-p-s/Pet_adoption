@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home | PawsConnect{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="mb-3">🐾 Welcome to PawsConnect</h1>
+    <p class="lead">
+        Every day, hundreds of dogs and cats lose their lives on India’s streets. 
+        PawsConnect helps them find loving homes, connects adopters with pets, 
+        and supports shelters for strays. Join our community and be part of a 
+        movement that turns compassion into action—one paw at a time.
+    </p>
+
+    <div class="mt-4">
+        {% if user.is_authenticated %}
+            <!-- Logged in: Show only Know More -->
+            <a href="{% url 'expanded_home' %}" class="btn btn-pastel">Know More</a>
+        {% else %}
+            <!-- Not logged in: Show login/signup/know more -->
+            <a href="{% url 'login' %}" class="btn btn-pastel me-2">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-pastel me-2">Sign Up</a>
+            <a href="{% url 'login' %}?next={% url 'expanded_home' %}" class="btn btn-pastel">Know More</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

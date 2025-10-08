@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Adoption Requests</h2>
+
+    {% if requests %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Pet</th>
+                    <th>Requested By</th>
+                    <th>Status</th>
+                    <th>Request Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in requests %}
+                <tr>
+                    <td>{{ req.pet.name }}</td>
+                    <td>{{ req.user.username }}</td>
+                    <td>
+                        {% if req.status == "Pending" %}
+                            <span class="text-warning">{{ req.status }}</span>
+                        {% elif req.status == "Approved" %}
+                            <span class="text-success">{{ req.status }}</span>
+                        {% else %}
+                            <span class="text-danger">{{ req.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ req.request_date|date:"d M Y H:i" }}</td>
+                    <td>
+                        {% if req.status == "Pending" %}
+                            <a href="{% url 'update_request' req.id 'Approved' %}" class="btn btn-success btn-sm">Approve</a>
+                            <a href="{% url 'update_request' req.id 'Rejected' %}" class="btn btn-danger btn-sm">Reject</a>
+                        {% else %}
+                            <button class="btn btn-secondary btn-sm" disabled>No Actions</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No adoption requests yet.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

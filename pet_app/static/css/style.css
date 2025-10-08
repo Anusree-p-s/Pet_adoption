@@ -1,0 +1,45 @@
+/* Global body styling */
+body {
+    background-color: #dfe7df; /* pastel olive green */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Buttons */
+.btn-pastel {
+    background-color: #a3c585;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 20px;
+    transition: 0.3s;
+    padding: 8px 18px;
+}
+.btn-pastel:hover {
+    background-color: #7aa35f;
+}
+
+/* Card styling */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Form inputs */
+input[type="text"], input[type="password"] {
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #c1d3a3;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #d9ead3 !important;
+}
+.navbar-brand, .nav-link {
+    color: #4b6043 !important;
+    font-weight: 500;
+}
+.nav-link:hover {
+    color: #2f3e2c !important;
+}
